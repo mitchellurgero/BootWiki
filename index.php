@@ -87,5 +87,8 @@ function body($page = "home.md"){
    echo "</div>";
    echo "\n</body>\n";
 }
+function foot(){
+	
+}
 
 ?>
