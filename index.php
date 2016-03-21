@@ -46,6 +46,7 @@ function genActive($link){
 	}
 	return $key;
 }
+//Generate the header from the config.
 function head(){
 	global $menu, $CONFIG;
 	echo '';
@@ -65,9 +66,9 @@ function head(){
 		
 	</head>
 	<?php
-	
-	
 }
+
+//Generate the body by reading the given page.
 function body($page = "home.md"){
 	echo "<body>\n";
 	echo '<div class="container">';
@@ -88,8 +89,20 @@ function body($page = "home.md"){
    echo "</div>";
    echo "\n</body>\n";
 }
+
+//Please leave this here so that others can find where to find this amazing script :)
 function foot(){
-	
+	echo '';
+	?>
+	<div class="container">
+		<div class="row">
+			<hr></hr>
+			<div class="">Powered by <a href="https://github.com/mitchellurgero/BootWiki">BootWiki</a></div>
+			<br />
+			<br />
+		</div>
+	</div>
+	<?php
 }
 
 ?>

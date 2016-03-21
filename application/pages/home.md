@@ -73,4 +73,15 @@ Here is an example of what a page.md file might look like:
 - can easily read.
 
 ```
+You can also use HTML and JavaScript in pages as you would normally with HTML pages.
+
+```
+<div>
+This is HTML in a markdown page.
+</div>
+
+#### But markdown will still work.
+
+```
+
 For a slightly better example, please look at the home.md file under "application/pages" directory.
