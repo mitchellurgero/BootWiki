@@ -1,14 +1,6 @@
 <?php
 $CONFIG = array(
-	
-	"admin" 	=> "admin",
-	"password" 	=> "password",
 	"title" 	=> "BootWiki",
-	
-	
-	);
-$users = array(
-	"user1" 	=> "password"
 	
 	);
 $menuItems = array(
@@ -17,6 +9,8 @@ $menuItems = array(
 	"Link 2"	=> "link2.md"
 	
 	);
+	
+	//Do not modify anthing past this point unless you know what you are doing, this is the menu HTML.
 $menuBegin = '
 <nav class="navbar navbar-default" role="navigation">
         <div class="container">
@@ -34,10 +28,9 @@ $menuBegin = '
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             	<ul class="nav navbar-nav">
 ';
-$menuEnd1 = '
-		</ul>
-';
-$menuEnd2 = "	</div>
+
+$menuEnd = "	</ul>
+</div>
  </nav>";
 
 ?>

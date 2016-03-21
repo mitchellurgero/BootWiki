@@ -10,32 +10,11 @@ $menu = $menuBegin;
 foreach($menuItems as $mi){
 		$key = array_search($mi, $menuItems);
 		$link = $mi;
-		$href = '<li><a href="index.php?page='.$link.'">'.$key.'</a></li>'."\n";
+		$href = '<li '.genActive($link).'><a href="index.php?page='.$link.'">'.$key.'</a></li>'."\n";
 		$menu = $menu.$href;
 }
 
-
-if(!isset($_SESSION['username'])){
-	//user is not logged in, check if config has 
-	$loginMenu = '
-			<ul class="nav navbar-nav navbar-right">
-                 <form class="navbar-form navbar-right" role="search" action="index.php" method="POST">
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="username" placeholder="Username">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="password" placeholder="Password">
-                    </div>
-                    <button type="submit" class="btn btn-default">Sign In</button>
-                </form>
-            </ul>
-	';
-	$menu = $menu.$menuEnd1;
-	$menu = $menu.$loginMenu;
-} else {
-	
-}
-$menu = $menu.$menuEnd2;
+$menu = $menu.$menuEnd;
 // Output header here...
 head();
 if(isset($_GET['page'])){
@@ -45,6 +24,28 @@ if(isset($_GET['page'])){
 }
 foot();
 //Function to generate header
+function genTitle(){
+	global $menuItems;
+	if(isset($_GET['page'])){
+		$key = array_search($_GET['page'], $menuItems);
+		if($key == ""){
+			$key = "404: Page cannot be found!";
+		}
+	} else {
+		$key = "Home";
+	}
+	return $key;
+}
+function genActive($link){
+	if(isset($_GET['page']) && $_GET['page'] == $link){
+		$key = 'class="active"';
+	} else {
+		if($link == "home.md" && !isset($_GET['page'])){
+			$key = 'class="active"';
+		}
+	}
+	return $key;
+}
 function head(){
 	global $menu, $CONFIG;
 	echo '';
@@ -56,7 +57,7 @@ function head(){
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="">
 		<meta name="author" content="">
-		<title><?php echo $CONFIG['title']; ?></title>
+		<title><?php echo $CONFIG['title']; echo " - ".genTitle(); ?></title>
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<script src="js/jquery-1.12.2.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>

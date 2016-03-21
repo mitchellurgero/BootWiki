@@ -8,8 +8,7 @@
 - PHP side is stable and working
 
 ### What needs work:
-- Login system is not implimented yet, for now this is all manual editing.
-- Maybe more?
+- Unknown
 
 ---
 

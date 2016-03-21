@@ -1,7 +1,7 @@
 <div class="container">
   <div class="jumbotron">
     <h1>Welcome to BootWiki</h1>      
-    <p>The bootstrap inspired wiki!</p>
+    <p>The bootstrap inspired wiki & CMS!</p>
   </div>     
 </div>
 
@@ -52,11 +52,12 @@ Creating a page is very simple, just put a file in "application/pages/" then lin
 Example:
 
 ```
-$menuItem = array(
+$menuItems = array(
 	"Item One" => "FileName.md",
 	"Title or Name" => "FileNameHere.md"
 );
 ```
+Please take a look at the current config.php for a better understanding of how the menu items are generated.
 
 ### How to code a page
 Pages are generated using Markdown. Markdown is a way for developers and users alike to be able to create beautiful pages quickly. Please see [this site](https://daringfireball.net/projects/markdown/syntax) for information on the Markdown Syntax.
