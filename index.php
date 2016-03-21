@@ -63,13 +63,20 @@ function head(){
 		<script src="js/jquery-1.12.2.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<?php echo $menu; ?>
-		
 	</head>
 	<?php
 }
 
 //Generate the body by reading the given page.
 function body($page = "home.md"){
+	//Was checking for slashes, but I think allowing nested folders should be fine. Will have to determine if it poses a security risk later though.
+	if(strpos($page, "/") !== false){
+		//$page = str_replace("/","", $page);
+	}
+	if(strpos($page, "..") !== false){
+		$page = str_replace("..","", $page);
+	}
+	//echo $page;
 	echo "<body>\n";
 	echo '<div class="container">';
 	if(file_exists("application/pages/".$page)){
