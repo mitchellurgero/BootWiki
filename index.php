@@ -1,6 +1,13 @@
 <?php
 session_start();
-//Check for user session
+//Load speed
+$time = microtime();
+$time = explode(' ', $time);
+$time = $time[1] + $time[0];
+$start = $time;
+
+
+
 require('application/config.php');
 include('application/md.php');
 //Set basic variables here...
@@ -99,17 +106,32 @@ function body($page = "home.md"){
 
 //Please leave this here so that others can find where to find this amazing script :)
 function foot(){
+	global $start;
 	echo '';
 	?>
 	<div class="container">
 		<div class="row">
 			<hr></hr>
-			<div class="">Powered by <a href="https://github.com/mitchellurgero/BootWiki">BootWiki</a></div>
+			<div class="col-md-6">
+				<div class="text-left">Powered by <a href="https://github.com/mitchellurgero/BootWiki">BootWiki</a></div>
+			</div>
+			<div class="col-md-6">
+				<?php
+					$time = microtime();
+					$time = explode(' ', $time);
+					$time = $time[1] + $time[0];
+					$finish = $time;
+					$total_time = round(($finish - $start), 4);
+					echo '<div class="text-right">Page generated in '.$total_time.' seconds.</div>';
+				?>
+			</div>
 			<br />
 			<br />
 		</div>
 	</div>
 	<?php
+
+
 }
 
 ?>
