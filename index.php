@@ -35,11 +35,13 @@ function genTitle(){
 	global $menuItems;
 	if(isset($_GET['page'])){
 		$key = array_search($_GET['page'], $menuItems);
-		if($key == ""){
-			$key = "404: Page cannot be found!";
+		$key = " - ".$key;
+		if($key == " - "){
+			$key = "";
 		}
+		
 	} else {
-		$key = "Home";
+		$key = " - "."Home";
 	}
 	return $key;
 }
@@ -65,7 +67,7 @@ function head(){
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="">
 		<meta name="author" content="">
-		<title><?php echo $CONFIG['title']; echo " - ".genTitle(); ?></title>
+		<title><?php echo $CONFIG['title']; echo genTitle(); ?></title>
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<script src="js/jquery-1.12.2.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
