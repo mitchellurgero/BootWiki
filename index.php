@@ -17,7 +17,12 @@ $menu = $menuBegin;
 foreach($menuItems as $mi){
 		$key = array_search($mi, $menuItems);
 		$link = $mi;
-		$href = '<li '.genActive($link).'><a href="index.php?page='.$link.'">'.$key.'</a></li>'."\n";
+		$href = "";
+		if(substr($link, 0, 4) == "http"){
+			$href = '<li '.genActive($link).'><a href="'.$link.'">'.$key.'</a></li>'."\n";
+		} else {
+			$href = '<li '.genActive($link).'><a href="index.php?page='.$link.'">'.$key.'</a></li>'."\n";
+		}
 		$menu = $menu.$href;
 }
 
