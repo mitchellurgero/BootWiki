@@ -60,9 +60,10 @@ For a slightly better example, please look at the home.md file under "applicatio
 
 ### How do links work?
 Links are simple: to make a link to a page on the site just use the following examples:
-
+```
 <a href="./?page=filename.md">Link Title</a>
-
+```
 --or--
-
-<a href="./page=folder/filename.md">Link Title</a>
+```
+<a href="./?page=folder/filename.md">Link Title</a>
+```
