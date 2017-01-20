@@ -93,11 +93,26 @@ function body($page = "home.md"){
 	//echo $page;
 	echo "<body>\n";
 	echo '<div class="container">';
-	if(file_exists("application/pages/".$page)){
+	if(file_exists("application/pages/".$page) && !is_dir("application/pages/".$page)){
 		$file = file_get_contents("application/pages/".$page);
 		echo Parsedown::instance()
    		->setMarkupEscaped(false) # escapes markup (HTML)
    		->text($file);
+	} else if(is_dir("application/pages/".$page)){
+		$files = glob("application/pages/".$page.'/*.{md}', GLOB_BRACE);
+		$files = array_reverse($files);
+		foreach($files as $file) {
+		  	echo '<div class="row">'."\r\n";
+		  	$line = fgets(fopen($file, 'r')); //For a title later?
+		  	echo '<div class="panel panel-default">';
+  			echo '<div class="panel-body">';
+  			echo Parsedown::instance()
+   				->setMarkupEscaped(false) # escapes markup (HTML)
+   				->text(file_get_contents($file));
+  			echo '</div>';
+			echo '</div>';
+		  	echo '</div>'."\r\n";
+		}
 	} else {
 		echo '
 		<div class="text-center">
