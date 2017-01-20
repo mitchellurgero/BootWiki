@@ -45,6 +45,9 @@ $menuItem = array(
 ### How to code a page
 Pages are generated using Markdown. Markdown is a way for developers and users alike to be able to create beautiful pages quickly. Please see [this site](https://daringfireball.net/projects/markdown/syntax) for information on the Markdown Syntax.
 
+**The first line of a file in a "blog" page will be the Title in the blog list page.**
+** See how to link to a page for more details**
+
 Here is an example of what a page.md file might look like:
 
 ```
@@ -66,4 +69,9 @@ Links are simple: to make a link to a page on the site just use the following ex
 --or--
 ```
 <a href="./?page=folder/filename.md">Link Title</a>
+```
+--or--
+```
+<a href="?page=folder">Link to folder</a>
+A link to a folder will list the files in the folder as blog posts.
 ```
