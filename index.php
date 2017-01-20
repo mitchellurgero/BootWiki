@@ -103,14 +103,18 @@ function body($page = "home.md"){
 		$files = array_reverse($files);
 		foreach($files as $file) {
 		  	echo '<div class="row">'."\r\n";
-		  	$line = fgets(fopen($file, 'r')); //For a title later?
+		  	$handle = fopen($file, 'r');
+		  	$line = fgets($handle); //For a title later?
+		  	$lines = '';
+		  	while (!feof($handle)) {
+    			$lines .= fgets($handle);
+			}
 		  	echo '<div class="panel panel-default">';
-  			echo '<div class="panel-body">';
-  			echo Parsedown::instance()
-   				->setMarkupEscaped(false) # escapes markup (HTML)
-   				->text(file_get_contents($file));
-  			echo '</div>';
-			echo '</div>';
+		  	echo '	<div class="panel-heading"><a href="?page='.$page.'/'.basename($file).'">'.Parsedown::instance()->setMarkupEscaped(false)->text($line).'</a></div>';
+  			echo '	<div class="panel-body">';
+  			echo Parsedown::instance()->setMarkupEscaped(false)->text($lines);
+  			echo '	</div>';
+			echo '	</div>';
 		  	echo '</div>'."\r\n";
 		}
 	} else {
@@ -121,7 +125,6 @@ function body($page = "home.md"){
 		</div>
 		';
 	}
-	
    echo "</div>";
    echo "\n</body>\n";
 }
