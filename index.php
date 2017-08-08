@@ -123,8 +123,8 @@ function body($page = "home.md"){
   			echo Parsedown::instance()->setMarkupEscaped(false)->text($lines);
   			echo '	</div>';
 			echo '	</div>';
-		  	echo '</div>'."\r\n";*/
-		}
+		  	echo '</div>'."\r\n";
+		} */
 	} else {
 		echo '
 		<div class="text-center">
