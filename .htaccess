@@ -1,0 +1,7 @@
+AddDefaultCharset UTF-8
+Options +MultiViews
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+# Change this if you are in a subdirectory
+RewriteRule (.*) index.php?page=$1 [QSA]
