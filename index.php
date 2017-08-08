@@ -66,7 +66,6 @@ function head(){
 	global $menu, $CONFIG;
 	echo '';
 	?>
-<html>
 	<head>
 		
 		<meta charset="utf-8">
@@ -108,7 +107,7 @@ function body($page = "home.md"){
    		->setMarkupEscaped(false) # escapes markup (HTML)
    		->text($file);
 	} else if(is_dir("application/pages/".$page)){
-		$files = glob("application/pages/".$page.'/*.{md}', GLOB_BRACE);
+		/*$files = glob("application/pages/".$page.'/*.{md}', GLOB_BRACE);
 		$files = array_reverse($files);
 		foreach($files as $file) {
 		  	echo '<div class="row">'."\r\n";
@@ -119,12 +118,12 @@ function body($page = "home.md"){
     			$lines .= fgets($handle);
 			}
 		  	echo '<div class="panel panel-default">';
-		  	echo '	<div class="panel-heading"><a href="?page='.$page.'/'.basename($file).'">'.Parsedown::instance()->setMarkupEscaped(false)->text($line).'</a></div>';
+		  	echo '	<div class="panel-heading"><a href="'.$CONFIG['base_url'].$page.'/'.basename($file).'">'.Parsedown::instance()->setMarkupEscaped(false)->text($line).'</a></div>';
   			echo '	<div class="panel-body">';
   			echo Parsedown::instance()->setMarkupEscaped(false)->text($lines);
   			echo '	</div>';
 			echo '	</div>';
-		  	echo '</div>'."\r\n";
+		  	echo '</div>'."\r\n";*/
 		}
 	} else {
 		echo '
@@ -163,7 +162,6 @@ function foot(){
 			<br />
 		</div>
 	</div>
-</html>
 	<?php
 
 
