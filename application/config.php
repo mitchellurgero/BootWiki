@@ -1,7 +1,7 @@
 <?php
 $CONFIG = array(
 	"title" 	=> "BootWiki",
-	
+	"base_url"	=> "https://example.com/" //Needs trailing slash!
 	);
 $menuItems = array(
 	"Home" 		=> "home.md", //DO NOT TOUCH
@@ -24,7 +24,7 @@ $menuBegin = '
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="./">'.$CONFIG['title'].'</a>
+                <a class="navbar-brand" href="'.$CONFIG['base_url'].'">'.$CONFIG['title'].'</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
