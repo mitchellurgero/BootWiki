@@ -18,10 +18,11 @@ foreach($menuItems as $mi){
 		$key = array_search($mi, $menuItems);
 		$link = $mi;
 		$href = "";
+		//<?php echo $CONFIG['base_url'];
 		if(strpos($link, "://")){
 			$href = '<li '.genActive($link).'><a href="'.$link.'">'.$key.'</a></li>'."\n";
 		} else {
-			$href = '<li '.genActive($link).'><a href="index.php?page='.$link.'">'.$key.'</a></li>'."\n";
+			$href = '<li '.genActive($link).'><a href="'.$CONFIG['base_url'].$link.'">'.$key.'</a></li>'."\n";
 		}
 		$menu = $menu.$href;
 }
@@ -65,6 +66,7 @@ function head(){
 	global $menu, $CONFIG;
 	echo '';
 	?>
+<html>
 	<head>
 		
 		<meta charset="utf-8">
@@ -73,10 +75,17 @@ function head(){
 		<meta name="description" content="">
 		<meta name="author" content="">
 		<title><?php echo $CONFIG['title']; echo genTitle(); ?></title>
-		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<script src="js/jquery-1.12.2.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
+		<link href="<?php echo $CONFIG['base_url'];?>css/bootstrap.min.css" rel="stylesheet">
+		<script src="<?php echo $CONFIG['base_url'];?>js/jquery-1.12.2.min.js"></script>
+		<script src="<?php echo $CONFIG['base_url'];?>js/bootstrap.min.js"></script>
 		<?php echo $menu; ?>
+		<style>
+		body  {
+		    /*background-image: url('https://urgero.org/background.jpg');
+		    background-repeat: no-repeat;
+		    background-attachment: fixed;*/
+		}
+		</style>
 	</head>
 	<?php
 }
@@ -154,6 +163,7 @@ function foot(){
 			<br />
 		</div>
 	</div>
+</html>
 	<?php
 
 
