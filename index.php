@@ -52,6 +52,7 @@ function genTitle(){
 	return $key;
 }
 function genActive($link){
+	$key = '';
 	if(isset($_GET['page']) && $_GET['page'] == $link){
 		$key = 'class="active"';
 	} else {
