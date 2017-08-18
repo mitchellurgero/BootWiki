@@ -5,19 +5,46 @@ $time = microtime();
 $time = explode(' ', $time);
 $time = $time[1] + $time[0];
 $start = $time;
-
-
-
+include("classhelper.php"); //To assist in pulling in plugins
+include("Events.php"); //Event system
+include("Plugin.php"); //Plugin system-ish
 require('application/config.php');
 include('application/md.php');
+Event::handle('InitializePlugin');
 //Set basic variables here...
 $parsemd = new Parsedown();
+/* Menu Stuff */
+$menuBegin = '
+<nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="'.$CONFIG['base_url'].'">'.$CONFIG['title'].'</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            	<ul class="nav navbar-nav">
+';
+
+$menuEnd = "	</ul>
+</div>
+ </nav>";
+ 
 $menu = $menuBegin;
 //Generate menu items:
+Event::handle('Menu', array(&$menuItems));
 foreach($menuItems as $mi){
+		
 		$key = array_search($mi, $menuItems);
 		$link = $mi;
 		$href = "";
+		
 		//<?php echo $CONFIG['base_url'];
 		if(strpos($link, "://")){
 			$href = '<li '.genActive($link).'><a href="'.$link.'">'.$key.'</a></li>'."\n";
@@ -39,16 +66,17 @@ foot();
 //Function to generate header
 function genTitle(){
 	global $menuItems;
+	$key = '';
 	if(isset($_GET['page'])){
 		$key = array_search($_GET['page'], $menuItems);
 		$key = " - ".$key;
 		if($key == " - "){
 			$key = "";
 		}
-		
 	} else {
 		$key = " - "."Home";
 	}
+	Event::handle('Title', array(&$key, $_GET['page']));
 	return $key;
 }
 function genActive($link){
@@ -67,6 +95,8 @@ function head(){
 	global $menu, $CONFIG;
 	echo '';
 	?>
+	<!DOCTYPE html>
+	<html>
 	<head>
 		
 		<meta charset="utf-8">
@@ -78,7 +108,6 @@ function head(){
 		<link href="<?php echo $CONFIG['base_url'];?>css/bootstrap.min.css" rel="stylesheet">
 		<script src="<?php echo $CONFIG['base_url'];?>js/jquery-1.12.2.min.js"></script>
 		<script src="<?php echo $CONFIG['base_url'];?>js/bootstrap.min.js"></script>
-		<?php echo $menu; ?>
 		<style>
 		body  {
 		    /*background-image: url('https://urgero.org/background.jpg');
@@ -86,12 +115,14 @@ function head(){
 		    background-attachment: fixed;*/
 		}
 		</style>
+		<?php Event::handle('EndHead');?>
 	</head>
 	<?php
 }
 
 //Generate the body by reading the given page.
 function body($page = "home.md"){
+	global $CONFIG, $menu;
 	//Was checking for slashes, but I think allowing nested folders should be fine. Will have to determine if it poses a security risk later though.
 	if(strpos($page, "/") !== false){
 		//$page = str_replace("/","", $page);
@@ -101,38 +132,30 @@ function body($page = "home.md"){
 	}
 	//echo $page;
 	echo "<body>\n";
+	Event::handle('Menu');
+	echo $menu;
 	echo '<div class="container">';
 	if(file_exists("application/pages/".$page) && !is_dir("application/pages/".$page)){
 		$file = file_get_contents("application/pages/".$page);
+		Event::handle('Page', array(&$page, &$file));
 		echo Parsedown::instance()
    		->setMarkupEscaped(false) # escapes markup (HTML)
    		->text($file);
 	} else if(is_dir("application/pages/".$page)){
-		/*$files = glob("application/pages/".$page.'/*.{md}', GLOB_BRACE);
+		$files = glob("application/pages/".$page.'/*.{md}', GLOB_BRACE);
 		$files = array_reverse($files);
-		foreach($files as $file) {
-		  	echo '<div class="row">'."\r\n";
-		  	$handle = fopen($file, 'r');
-		  	$line = fgets($handle); //For a title later?
-		  	$lines = '';
-		  	while (!feof($handle)) {
-    			$lines .= fgets($handle);
-			}
-		  	echo '<div class="panel panel-default">';
-		  	echo '	<div class="panel-heading"><a href="'.$CONFIG['base_url'].$page.'/'.basename($file).'">'.Parsedown::instance()->setMarkupEscaped(false)->text($line).'</a></div>';
-  			echo '	<div class="panel-body">';
-  			echo Parsedown::instance()->setMarkupEscaped(false)->text($lines);
-  			echo '	</div>';
-			echo '	</div>';
-		  	echo '</div>'."\r\n";
-		} */
+		Event::handle('Page', array(&$page, &$file)); //Maybe want to handle this event in here as well?
+		Event::handle('PagesDir', array(&$page, &$files));
 	} else {
-		echo '
+		
+		$o404 =  '
 		<div class="text-center">
 			<h3>404 - Page not found</h3>
 			<p>I could not find the page "'.$page.'". If you believe you got this message in error, please contact the site administrator.</p>
 		</div>
 		';
+		Event::handle('404', array(&$o404));
+		echo $o404;
 	}
    echo "</div>";
    echo "\n</body>\n";
@@ -141,6 +164,7 @@ function body($page = "home.md"){
 //Please leave this here so that others can find where to find this amazing script :)
 function foot(){
 	global $start;
+	Event::handle('EndFoot');
 	echo '';
 	?>
 	<div class="container">
@@ -167,5 +191,8 @@ function foot(){
 
 
 }
-
+function addPlugin($name, array $attrs=array()){
+	return ClassHelper::addPlugin($name, $attrs);
+}
 ?>
+
