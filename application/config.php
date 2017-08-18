@@ -1,7 +1,7 @@
 <?php
 $CONFIG = array(
 	"title" 	=> "BootWiki",
-	"base_url"	=> "https://example.com/" //Needs trailing slash!
+	"base_url"	=> "http://192.168.1.6/bootwiki/" //Needs trailing slash!
 	);
 $menuItems = array(
 	"Home" 		=> "home.md", //DO NOT TOUCH

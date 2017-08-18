@@ -13,14 +13,14 @@ class BlogPlugin extends Plugin{
 	public function onTitle(&$title, $page){
 		//Change page(s) title(S)
 		//In this case we specifically parse so that we only change ONE page here:
-		if($page == "howto/linux" || $page == "howto/linux/"){
+		if($page == "example" || $page == "example/"){
 			$title = " - Example Blog Plugin";
 		}
 		return true;
 	}
 	public function onPage(&$page, &$pageData){
 		//In this case we specifically parse so that we only change ONE page here:
-		if($page == "howto/linux" || $page == "howto/linux/"){
+		if($page == "example" || $page == "example/"){
 			print_r("<h3>Example Listing of pages!</h3>");
 		}
 		
@@ -48,7 +48,7 @@ class BlogPlugin extends Plugin{
 		//Add links to menu(Or customize current menu):
 		//Example:
 		//$menu["Title"] = "link" (page path relative to 'applications' folder, or a full link: 'https://example.com')
-		//$menu["Linux Blog"] = "howto/linux";
+		$menu["Dir Blog"] = "example/";
 		return true;
 	}
 	public function on404(&$string){
