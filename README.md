@@ -1,14 +1,18 @@
 ## BootWiki - Bootstrap inspired Wiki/CMS
 
+Databaseless, flat-file(Markdown/HTML) PHP Wiki/CMS.
+
 ---
 
 ### What works:
 - Markdown parsing
 - HTML parsing
 - PHP side is stable and working
+- basic .htaccess is working well (fancy url)
+- Plugin system now working (Basic events, all available events are in the example "Blog" plugin)
 
 ### What needs work:
-- Nested Menu Items (Drop Down's
+- Nested Menu Items (Drop Down's)
 
 ---
 
@@ -27,7 +31,7 @@ BootWiki is designed to be run even on the smallest of servers (Like free PHP we
 ### How to install and use BootWiki for your site
 
 Boot wiki is very simple to install and use. To download, please visit the GitHub: [Boot Wiki Github](https://github.com/mitchellurgero/BootWiki)
-Once downloaded, just unzip the files (or git clone https://github.com/mitchellurgero/BootWiki) to install. It's that simple.
+Once downloaded, just unzip the files (or git clone https://github.com/mitchellurgero/BootWiki) to install. Modify the config.php to your liking. Modify or add pages to "application/pages/" folder. It's that simple.
 
 ### How to create a page
 
@@ -45,21 +49,6 @@ $menuItem = array(
 ### How to code a page
 Pages are generated using Markdown. Markdown is a way for developers and users alike to be able to create beautiful pages quickly. Please see [this site](https://daringfireball.net/projects/markdown/syntax) for information on the Markdown Syntax.
 
-**The first line of a file in a "blog" page will be the Title in the blog list page.**
-** See how to link to a page for more details**
-
-Here is an example of what a page.md file might look like:
-
-```
-### This will generate the <h3></h3> tags
-
-- And a list
-- Of stuff
-- That the user
-- can easily read.
-
-```
-For a slightly better example, please look at the home.md file under "application/pages" directory.
 
 ### How do links work?
 Links are simple: to make a link to a page on the site just use the following examples:
@@ -70,8 +59,13 @@ Links are simple: to make a link to a page on the site just use the following ex
 ```
 <a href="./?page=folder/filename.md">Link Title</a>
 ```
---or--
+--or if using mod_rewrite in apache--
 ```
-<a href="?page=folder">Link to folder</a>
-A link to a folder will list the files in the folder as blog posts.
+<a href="filename.md">Link Title</a>
+or
+<a href="folder/filename.md">Link Title</a>
 ```
+
+### How to make a plugin
+
+This documentation will be in it's own file called "PLUGINS.md" eventually, for now just look at the example "Blog" plugin.
