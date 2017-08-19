@@ -137,17 +137,16 @@ function body($page = "home.md"){
 	echo '<div class="container">';
 	if(file_exists("application/pages/".$page) && !is_dir("application/pages/".$page)){
 		$file = file_get_contents("application/pages/".$page);
-		Event::handle('Page', array(&$page, &$file));
-		echo Parsedown::instance()
+		$pageData = Parsedown::instance()
    		->setMarkupEscaped(false) # escapes markup (HTML)
    		->text($file);
+   		Event::handle('Page', array(&$page, &$pageData));
+   		echo $pageData;
 	} else if(is_dir("application/pages/".$page)){
 		$files = glob("application/pages/".$page.'/*.{md}', GLOB_BRACE);
 		$files = array_reverse($files);
-		Event::handle('Page', array(&$page, &$file)); //Maybe want to handle this event in here as well?
 		Event::handle('PagesDir', array(&$page, &$files));
 	} else {
-		
 		$o404 =  '
 		<div class="text-center">
 			<h3>404 - Page not found</h3>
@@ -195,4 +194,3 @@ function addPlugin($name, array $attrs=array()){
 	return ClassHelper::addPlugin($name, $attrs);
 }
 ?>
-
